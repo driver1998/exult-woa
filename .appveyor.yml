@@ -1,0 +1,31 @@
+image: Ubuntu1804
+
+environment:
+  matrix:
+    - ARCH: armv7
+    - ARCH: aarch64
+  
+install:
+  - sh: |-
+      curl -o llvm-mingw.tar.xz    -L https://github.com/mstorsjo/llvm-mingw/releases/download/20191230/llvm-mingw-20191230-ubuntu-16.04.tar.xz
+      tar xJf llvm-mingw.tar.xz    || exit 1
+      curl -o sdl.tar.gz           -L https://www.libsdl.org/release/SDL2-2.0.10.tar.gz
+      tar xzf sdl.tar.gz           || exit 1
+      curl -o zlib.tar.xz          -L https://www.zlib.net/zlib-1.2.11.tar.xz
+      tar xJf zlib.tar.xz          || exit 1
+      curl -o libpng.tar.xz        -L https://download.sourceforge.net/libpng/libpng-1.6.37.tar.xz
+      tar xJf libpng.tar.xz        || exit 1
+      git clone https://github.com/exult/exult --depth 1
+      sudo apt-get update -qq
+      sudo apt-get install -y libtool-bin libsdl2-dev libogg-dev libvorbis-dev
+      chmod +x build.sh
+      
+build_script:
+  sh: ./build.sh
+
+after_build:
+  sh: tar cJf exult.tar.xz $ARCH-w64-mingw32
+
+artifacts:
+  - path: 'exult.tar.xz'
+    name: Exult

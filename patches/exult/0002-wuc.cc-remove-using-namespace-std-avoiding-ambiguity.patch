@@ -1,0 +1,25 @@
+From cc84c45ca5d0642fe8dc33583ab4fca14a435397 Mon Sep 17 00:00:00 2001
+From: GH Cao <driver1998@foxmail.com>
+Date: Fri, 21 Feb 2020 03:26:21 +0800
+Subject: [PATCH 2/4] wuc.cc: remove using namespace std, avoiding ambiguity
+
+---
+ tools/wuc.cc | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/tools/wuc.cc b/tools/wuc.cc
+index f146e4b1..e0742cb5 100644
+--- a/tools/wuc.cc
++++ b/tools/wuc.cc
+@@ -2,8 +2,6 @@
+ #include <cstdlib>
+ #include <cstring>
+ 
+-using namespace std;
+-
+ #include "uctools.h"
+ 
+ static opcode_desc push_table[] = {
+-- 
+2.17.1
+

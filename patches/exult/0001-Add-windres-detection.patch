@@ -1,0 +1,47 @@
+From 9b78214ad5483a393bd983f29d47f113b2f7aae6 Mon Sep 17 00:00:00 2001
+From: GH Cao <driver1998@foxmail.com>
+Date: Fri, 21 Feb 2020 03:15:31 +0800
+Subject: [PATCH 1/4] Add windres detection
+
+---
+ Makefile.am  | 4 +---
+ configure.ac | 8 ++++++++
+ 2 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index f63ebcfa..135e9da4 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -212,9 +212,7 @@ EXTRA_DIST = 	\
+ 	server/servewin32.h
+ 
+ win32/exultico.o: $(srcdir)/win32/exultico.rc $(srcdir)/win32/exult.ico
+-	-mkdir win32
+-	cp $(srcdir)/win32/exult.ico win32
+-	windres $(srcdir)/win32/exultico.rc win32/exultico.o
++	$(WINDRES) $(srcdir)/win32/exultico.rc win32/exultico.o
+ 
+ CLEANFILES = *~
+ 
+diff --git a/configure.ac b/configure.ac
+index f70dccc5..247092c1 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -109,6 +109,14 @@ case "$host_os" in
+ 		;;
+ esac
+ 
++if echo $host_os | grep "cygwin\|mingw" > /dev/null 2>&1; then
++	AC_CHECK_TOOL([WINDRES], [windres])
++	if test "x$WINDRES" = "x"; then
++		AC_MSG_ERROR([windres could not be found, please make sure this program is within your path.])
++	fi
++fi
++AC_SUBST(WINDRES)
++
+ AM_CONDITIONAL(MACOSX, test x$ARCH = xmacosx)
+ 
+ # ---------------------------------------------------------------------
+-- 
+2.17.1
+

@@ -1,0 +1,34 @@
+From 971bba39da22e4ee3a13fa9d9af8503a59b880c3 Mon Sep 17 00:00:00 2001
+From: GH Cao <driver1998@foxmail.com>
+Date: Fri, 21 Feb 2020 03:30:50 +0800
+Subject: [PATCH 3/4] gamewin.h: move read_saveinfo outside of HAVE_ZIP_SUPPORT
+
+---
+ gamewin.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/gamewin.h b/gamewin.h
+index 19c4693e..01ceb2c6 100644
+--- a/gamewin.h
++++ b/gamewin.h
+@@ -574,15 +574,15 @@ class Game_window {
+ 	void read_saveinfo(IDataSource *in,
+ 	                   SaveGame_Details *&details,
+ 	                   SaveGame_Party  *&party);
+-#ifdef HAVE_ZIP_SUPPORT
+ private:
++#ifdef HAVE_ZIP_SUPPORT
+ 	bool get_saveinfo_zip(const char *fname, char *&name,
+ 	                      Shape_file *&map,
+ 	                      SaveGame_Details *&details,
+ 	                      SaveGame_Party  *&party);
++#endif
+ 	void restore_flex_files(IDataSource &ds, const char *basepath);
+ public:
+-#endif
+ 	void write_saveinfo();      // Write the save info to gamedat
+ 	inline char *get_save_name(int i) const { // Get ->saved-game name.
+ 		return save_names[i];
+-- 
+2.17.1
+

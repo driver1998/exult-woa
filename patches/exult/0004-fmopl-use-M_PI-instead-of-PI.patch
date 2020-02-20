@@ -1,0 +1,27 @@
+From 6c5b7e399ee6d2b511bc7bdc6413e7fb90772213 Mon Sep 17 00:00:00 2001
+From: GH Cao <driver1998@foxmail.com>
+Date: Fri, 21 Feb 2020 03:31:40 +0800
+Subject: [PATCH 4/4] fmopl: use M_PI instead of PI
+
+---
+ audio/midi_drivers/fmopl.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/audio/midi_drivers/fmopl.cpp b/audio/midi_drivers/fmopl.cpp
+index 92c9b333..c364cd4c 100644
+--- a/audio/midi_drivers/fmopl.cpp
++++ b/audio/midi_drivers/fmopl.cpp
+@@ -36,8 +36,8 @@
+ #include "fmopl.h"
+ #include "array_size.h"
+ 
+-#ifndef PI
+-#define PI 3.14159265358979323846
++#ifndef M_PI
++#define M_PI 3.14159265358979323846
+ #endif
+ 
+ #ifndef ARRAYSIZE
+-- 
+2.17.1
+
