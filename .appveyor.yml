@@ -15,6 +15,10 @@ install:
       tar xJf zlib.tar.xz          || exit 1
       curl -o libpng.tar.xz        -L https://download.sourceforge.net/libpng/libpng-1.6.37.tar.xz
       tar xJf libpng.tar.xz        || exit 1
+      curl -o libogg.tar.xz        -L http://downloads.xiph.org/releases/ogg/libogg-1.3.4.tar.xz
+      tar xJf libogg.tar.xz        || exit 1
+      curl -o libvorbis.tar.xz     -L http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.6.tar.xz
+      tar xJf libvorbis.tar.xz     || exit 1
       git clone https://github.com/exult/exult --depth 1
       sudo apt-get update -qq
       sudo apt-get install -y libtool-bin libsdl2-dev libogg-dev libvorbis-dev
