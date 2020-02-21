@@ -28,9 +28,15 @@ install:
 build_script:
   sh: ./build.sh
 
-after_build:
-  sh: tar cJf exult.tar.xz $ARCH-w64-mingw32
-
 artifacts:
-  - path: 'exult.tar.xz'
+  - path: 'exult-windows*.zip'
     name: Exult
+
+deploy:
+  - release: v1.5.0git Build $(APPVEYOR_BUILD_NUMBER)
+    description: Filezilla v1.5.0git Build $(APPVEYOR_BUILD_NUMBER)
+    provider: GitHub
+    artifact: /exult-windows.*\.zip/
+    auth_token:
+      secure: H8HAtJ5SrLHk1gW1eYZFcjtekn1rIW7a8GJsNC6Nftcql8wE0seZRtYqMnFoQLnr
+    draft: true

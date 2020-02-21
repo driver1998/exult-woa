@@ -94,7 +94,29 @@ popd
 
 # exult
 pushd exult
-./configure --prefix=$PREFIX --host=$HOST || exit 1
+./configure --prefix=$PREFIX --host=$HOST --disable-tools || exit 1
 make -j $(nproc) || exit 1
 make install     || exit 1
+COMMIT=$(git rev-parse --short HEAD)
+popd
+
+BIN="$PREFIX/bin/exult.exe              \
+     $PREFIX/bin/libogg-0.dll           \
+     $PREFIX/bin/libvorbis-0.dll        \
+     $PREFIX/bin/libvorbisfile-3.dll    \
+     $PREFIX/bin/SDL2.dll               \
+     $PREFIX/bin/zlib1.dll              \
+     $PREFIX/bin/libpng16-16.dll        \
+     $MINGW_ROOT/$HOST/bin/libc++.dll   \
+     $MINGW_ROOT/$HOST/bin/libunwind.dll"
+DATA="$PREFIX/share/exult/*"
+
+mkdir output
+mkdir output/data
+cp $BIN output
+cp $DATA output/data
+
+pushd output
+$HOST-strip *.exe *.dll
+zip -r ../exult-windows-$COMMIT-$ARCH.zip *
 popd
